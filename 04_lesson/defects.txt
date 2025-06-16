@@ -1,0 +1,12 @@
+1) Фунция def capitalize(self, string: str) -> str: меняет вверхний регистр на нижний.
+
+   @pytest.mark.parametrize('str,result', [("пАВЕЛ", "ПАВЕЛ"),("сАшА", "САшА")])
+def test_capitalize_negative(str, result):
+    capitalize = StringUtils()
+    res = capitalize.capitalize(str)
+    assert res == result
+    
+    ОР == ПАВЕЛ, САшА
+    ФР == Павел, Саша
+
+ 
