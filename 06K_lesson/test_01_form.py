@@ -7,7 +7,8 @@ def test_form():
     driver = webdriver.Edge()
     driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
 
-    driver.first_name = driver.find_element(By.CSS_SELECTOR, "[name='first-name']").send_keys("Иван")
+    driver.first_name = driver.find_element(
+        By.CSS_SELECTOR, "[name='first-name']").send_keys("Иван")
     driver.last_name = driver.find_element(By.CSS_SELECTOR, "[name='last-name']").send_keys("Петров")
     driver.address = driver.find_element(By.CSS_SELECTOR, "[name='address']").send_keys("Ленина, 55-3")
     driver.email = driver.find_element(By.CSS_SELECTOR, "[name='e-mail']").send_keys("test@skypro.com")
