@@ -20,6 +20,7 @@ def test_form():
 
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 
+
     pole_z = driver.find_element(By.ID, "zip-code").get_attribute("class")
     assert pole_z == "alert py-2 alert-danger"
 

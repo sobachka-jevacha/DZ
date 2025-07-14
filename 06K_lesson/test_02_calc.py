@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.mark.calculator
 def test_calk():
     driver = webdriver.Chrome()
+
     driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
     
     delay_field = driver.find_element(By.CSS_SELECTOR, '#delay')
