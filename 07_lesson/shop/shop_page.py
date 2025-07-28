@@ -55,4 +55,4 @@ class Total:
         self._driver.get("https://www.saucedemo.com/checkout-step-two.html")
         print((self._driver.find_element(By.CSS_SELECTOR, ".summary_total_label").text))
         total = self._driver.find_element(By.CSS_SELECTOR, ".summary_total_label").text
-        assert total == 'Total: $58.29'
+        return total
