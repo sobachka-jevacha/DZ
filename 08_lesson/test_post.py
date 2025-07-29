@@ -1,7 +1,7 @@
 import requests
 
 
-key = "EJoAOwIQSwS0nRKg48kiB7o8w9ou7CH1DPEM-ZNOv+fggMmQBaDCqPSbOGRQrg5N"
+key = 
 base_url = "https://ru.yougile.com"
 
 
