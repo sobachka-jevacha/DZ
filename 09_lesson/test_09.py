@@ -1,41 +1,45 @@
-from sqlalchemy import create_engine
-from sqlalchemy.sql import text
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import sessionmaker
+
 
 db_connection_string = "postgresql://postgres:123@localhost:5432/QA"
-db = create_engine(db_connection_string)
+engine = create_engine(db_connection_string)
 
+Session = sessionmaker(bind=engine)
+session = Session()
+
+def clean():
+    delete_sql = text("DELETE FROM student WHERE user_id = :user_id").bindparams(user_id=1235600)
+    session.execute(delete_sql)
+    session.commit()
+
+clean()
 
 def test_insert():
-    sql = text("insert into student(user_id,education_form,subject_id) values (1235600, 'group', 1)")
-    db.execute(sql)
-    user = text("select * from student where user_id= 1235600")
-    user_id = db.execute(user).fetchall() 
-    assert user_id[0][0] == 1235600
-    print(user_id)
-
+    insert_sql = text("INSERT INTO student(user_id, education_form, subject_id) VALUES(:user_id, :education_form, :subject_id)")\
+                        .bindparams(user_id=1235600, education_form='group', subject_id=1)
+    session.execute(insert_sql)
+    session.commit()
+    select_sql = text("SELECT * FROM student WHERE user_id = :user_id").bindparams(user_id=1235600)
+    result = session.execute(select_sql).fetchall()
+    assert result[0].user_id == 1235600
+    print(result)
 
 def test_update():
-    sql = text("update student set level = 'Beginner' where user_id=1235600")
-    db.execute(sql)
-    user = text("select * from student where user_id= 1235600")
-    user_id = db.execute(user).fetchall() 
-    assert user_id[0][1] is not None
-    assert user_id[0][1] == 'Beginner'
-    print(user_id)
-
+    update_sql = text("UPDATE student SET level = :level WHERE user_id = :user_id").bindparams(level="Beginner", user_id=1235600)
+    session.execute(update_sql)
+    
+    select_sql = text("SELECT * FROM student WHERE user_id = :user_id").bindparams(user_id=1235600)
+    result = session.execute(select_sql).fetchall()
+    assert result[0][1] == 'Beginner'
+    print(result)
 
 def test_delete():
-    sql = text("delete from student where user_id=1235600")
-    db.execute(sql)
-    user = text("select * from student where user_id= 1235600")
-    user_id = db.execute(user).fetchall() 
-    assert user_id == []
-    print(user_id)
-
-
-        
-
-
-
-
-
+    delete_sql = text("DELETE FROM student WHERE user_id = :user_id").bindparams(user_id=1235600)
+    session.execute(delete_sql)
+    session.commit()
+    
+    select_sql = text("SELECT * FROM student WHERE user_id = :user_id").bindparams(user_id=1235600)
+    result = session.execute(select_sql).fetchall()
+    assert result == []
+    print(result)
